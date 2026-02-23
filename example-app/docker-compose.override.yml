@@ -1,0 +1,23 @@
+services:
+  web:
+    environment:
+      DATABASE_URL=postgresql://postgres:postgres@postgresdb:5432/postgres
+      FLASK_ENV=development
+    volumes:
+      - ./app:/app
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:16
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
